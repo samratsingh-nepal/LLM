@@ -1,14 +1,15 @@
-import pdfplumber
 import streamlit as st
 from transformers import pipeline
+import PyPDF2
 
-# Function to extract text from a PDF file using pdfplumber
+# Function to extract text using PyPDF2
 def extract_text_from_pdf(pdf_file):
-    with pdfplumber.open(pdf_file) as pdf:
-        text = ""
-        for page in pdf.pages:
-            text += page.extract_text()
+    reader = PyPDF2.PdfReader(pdf_file)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
     return text
+
 
 # Step 3: Load a question-answering model
 qa_model = pipeline("question-answering", model="deepset/roberta-base-squad2")
