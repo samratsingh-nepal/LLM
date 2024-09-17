@@ -1,32 +1,13 @@
-# Step 1: Install necessary libraries
-# You need to install these in your local environment or specify them in your Streamlit requirements.txt
-# !pip install transformers
-# !pip install PyMuPDF
-# !pip install streamlit
-
-import fitz  # PyMuPDF for PDF text extraction
-from transformers import pipeline
+import pdfplumber
 import streamlit as st
+from transformers import pipeline
 
-# Step 2: Define a function to extract text from a PDF file
+# Function to extract text from a PDF file using pdfplumber
 def extract_text_from_pdf(pdf_file):
-    """
-    Extracts text from the provided PDF file.
-    
-    Args:
-        pdf_file: Uploaded PDF file object from Streamlit's file uploader.
-    
-    Returns:
-        str: Extracted text from the entire PDF.
-    """
-    doc = fitz.open(stream=pdf_file.read(), filetype="pdf")
-    text = ""
-    
-    # Loop through each page and extract text
-    for page_num in range(doc.page_count):
-        page = doc.load_page(page_num)
-        text += page.get_text()
-    
+    with pdfplumber.open(pdf_file) as pdf:
+        text = ""
+        for page in pdf.pages:
+            text += page.extract_text()
     return text
 
 # Step 3: Load a question-answering model
