@@ -11,10 +11,10 @@ def extract_text_from_pdf(pdf_file):
     return text
 
 
-# Step 3: Load a question-answering model
+# Load a question-answering model
 qa_model = pipeline("question-answering", model="deepset/roberta-base-squad2")
 
-# Step 4: Define a function to answer questions based on the PDF content
+# Function to answer questions based on the PDF content
 def answer_question(question, context):
     """
     Answers a question using the provided context from the PDF.
@@ -29,7 +29,7 @@ def answer_question(question, context):
     result = qa_model(question=question, context=context)
     return result['answer']
 
-# Step 5: Streamlit app setup
+# Streamlit app setup
 def main():
     st.title("PDF Question-Answering System")
     
