@@ -11,8 +11,8 @@ def extract_text_from_pdf(pdf_file):
     return text
 
 
-# Load a question-answering model
-qa_model = pipeline("question-answering", model="deepset/roberta-base-squad2")
+# Load a lighter question-answering model
+qa_model = pipeline("question-answering", model="distilbert-base-uncased-distilled-squad")
 
 # Function to answer questions based on the PDF content
 def answer_question(question, context):
@@ -43,20 +43,4 @@ def main():
         
         st.success("Text extracted from the PDF successfully!")
         
-        # Display extracted text (optional)
-        with st.expander("Show extracted text"):
-            st.write(pdf_text)
-        
-        # Ask questions about the content
-        question = st.text_input("Ask a question about the PDF content")
-        
-        if st.button("Get Answer"):
-            if question:
-                with st.spinner("Answering your question..."):
-                    answer = answer_question(question, pdf_text)
-                st.write(f"Answer: {answer}")
-            else:
-                st.warning("Please enter a question.")
-    
-if __name__ == "__main__":
-    main()
+       
