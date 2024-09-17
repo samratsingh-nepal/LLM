@@ -1,4 +1,6 @@
 streamlit==1.25.0
 PyMuPDF==1.22.5
+pip uninstall PyMuPDF
+pip install PyMuPDF
 transformers==4.33.3
 torch==2.0.1  # Necessary for the transformers model
